@@ -16,5 +16,4 @@ const resultText = 'Result is: ';
 
 add(number1, number2, printResults, resultText);
 
-
-
+export {}

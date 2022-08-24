@@ -19,3 +19,5 @@ console.log(person.name);
 for (const hobby of person.hobbies) {
   console.log(hobby.toUpperCase())
 }
+
+export {}

@@ -22,3 +22,5 @@ console.log(combinedAgesString);
 
 const combinedNames = combine('Zé', 'Paulo', 'string');
 console.log(combinedNames);
+
+export {}

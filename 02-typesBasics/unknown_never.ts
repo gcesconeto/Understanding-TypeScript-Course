@@ -14,3 +14,5 @@ function generateError(msg: string, code: number): never { // never used because
 }
 
 generateError('this is wrong', 500);
+
+export {}

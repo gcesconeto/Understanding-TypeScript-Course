@@ -25,3 +25,5 @@ addAndHandle(10, 20, (number) => {
   console.log(number);
   return number; // void in cb definition simply ignores the return, doesnt eval it to void.
 })
+
+export {}
