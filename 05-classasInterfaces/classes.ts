@@ -1,16 +1,19 @@
-class Department {
+abstract class Department { // cant be instantiated
   // public readonly id: number; // readonly is typescript specific
   // name: string; // default behaviour is public
-  
   protected employees: string[] = []; // protected is like private but can be accessed from child classes.
 
-  constructor(public readonly id: number, public name: string) { //shorthand for initializing props
+  static fiscalYear = 2022; // unavailable from instance, 'this' cant access it
+
+  constructor(public readonly id: number, public name: string) { // shorthand for initializing props
     // this.name = n
   }
 
-  describe() {
-    console.log(`The name of this department is: ${this.name}`);
+  static createEmployee(name: string) { // can be called without instantiating the class: Department.createEmployee('Greg')
+    return { name }
   }
+
+  abstract describe(this: Department): void; // abstract method that forces child classes to implement it
 
   describeThis(this: Department) {
     console.log(`The name of this department is: ${this.name}`);
@@ -34,6 +37,10 @@ class ITDepartment extends Department {
   constructor(id: number, admins: string[]) {
     super(id, 'IT');  // accesses the constructor of the superior class
     this.admins = admins;
+  }
+
+  describe(this: ITDepartment) {
+    console.log(`${this.name} id:(${this.id})`)
   }
 }
 
@@ -64,6 +71,10 @@ class AccountingDepartment extends Department {
     this.lastReport = report;
   }
   
+  describe(this: AccountingDepartment) {
+    console.log(`${this.name} id:(${this.id})`)
+  }
+
   printReports(this: AccountingDepartment) {
     console.log(this.reports)
   }
@@ -88,7 +99,7 @@ accounting.describe(); // calls describe method on instance as intended
 
 const accountingCopy = { describe: accounting.describe, describeThis: accounting.describeThis };
 
-accountingCopy.describe(); // calls describe methos from instance with undefined as the name
+// accountingCopy.describe(); // calls describe methos from instance with undefined as the name
                            // because 'this' keyword refers to accountingCopy, that has no name key
 
 // accountingCopy.describeThis(); // generates error because describeThis requires Departemnt Type.
