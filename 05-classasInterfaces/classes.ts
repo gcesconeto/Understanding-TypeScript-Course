@@ -46,3 +46,17 @@ accounting.addEmployee('Naty');
 
 accounting.describe();
 accounting.printEmployeesInfo();
+
+// INHERITANCE //
+
+class ITDepartment extends Department {
+  admins: string[];
+  constructor(id: number, admins: string[]) {
+    super(id, 'IT');  // accesses the constructor of the superior class
+    this.admins = admins;
+  }
+}
+
+const it = new ITDepartment(2, ['Greg']);
+
+console.log(it)
