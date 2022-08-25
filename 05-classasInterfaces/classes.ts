@@ -2,7 +2,7 @@ class Department {
   // public readonly id: number; // readonly is typescript specific
   // name: string; // default behaviour is public
   
-  private employees: string[] = [];
+  protected employees: string[] = []; // protected is like private but can be accessed from child classes.
 
   constructor(public readonly id: number, public name: string) { //shorthand for initializing props
     // this.name = n
@@ -26,9 +26,63 @@ class Department {
   }
 }
 
-const accounting = new Department(5, 'Accounting'); // creates instance with Accounting for 'name'
+
+// INHERITANCE //
+
+class ITDepartment extends Department {
+  admins: string[];
+  constructor(id: number, admins: string[]) {
+    super(id, 'IT');  // accesses the constructor of the superior class
+    this.admins = admins;
+  }
+}
+
+const it = new ITDepartment(2, ['Greg']);
+
+console.log(it)
+
+class AccountingDepartment extends Department {
+  private lastReport: string;
+
+  get getLastReport() { // getter method, doesnt need parenthesis to be accessed
+    if (this.lastReport) return this.lastReport;
+    throw new Error('No reports!')
+  }
+
+  set setLastReport(report: string) {
+    if (!report) throw new Error('Invalid report!')
+    this.addReport(report)
+  }
+
+  constructor(id: number, private reports: string[]) {
+    super(id, 'Accounting');
+    this.lastReport = reports[0]
+  }
+
+  addReport(report: string) {
+    this.reports.push(report);
+    this.lastReport = report;
+  }
+  
+  printReports(this: AccountingDepartment) {
+    console.log(this.reports)
+  }
+  
+  addEmployee(this: AccountingDepartment, employee: string): void {
+    if (employee.length < 5) return;
+    this.employees.push(employee);
+  }
+}
+
+const accounting = new AccountingDepartment(5, []); // creates instance with Accounting for 'name'
 
 console.log(accounting);
+
+console.log(accounting.getLastReport); // getter function accessed
+
+accounting.setLastReport = 'Shit just hit the turbine'; // setter method is called with an assignment
+
+accounting.addReport('Shit just hit the fan')
 
 accounting.describe(); // calls describe method on instance as intended
 
@@ -46,17 +100,3 @@ accounting.addEmployee('Naty');
 
 accounting.describe();
 accounting.printEmployeesInfo();
-
-// INHERITANCE //
-
-class ITDepartment extends Department {
-  admins: string[];
-  constructor(id: number, admins: string[]) {
-    super(id, 'IT');  // accesses the constructor of the superior class
-    this.admins = admins;
-  }
-}
-
-const it = new ITDepartment(2, ['Greg']);
-
-console.log(it)
