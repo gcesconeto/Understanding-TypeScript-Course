@@ -29,9 +29,6 @@ abstract class Department { // cant be instantiated
   }
 }
 
-
-// INHERITANCE //
-
 class ITDepartment extends Department {
   admins: string[];
   constructor(id: number, admins: string[]) {
@@ -50,6 +47,19 @@ console.log(it)
 
 class AccountingDepartment extends Department {
   private lastReport: string;
+  private static instance: AccountingDepartment;
+
+  private constructor(id: number, private reports: string[]) {
+    super(id, 'Accounting');
+    this.lastReport = reports[0]
+  }
+
+  static getInstance() {  // Singleton paradigm, only one instance is possible
+    if (this.instance) return this.instance; // this inside static method returns the class itself, not the instance
+    this.instance = new AccountingDepartment(5, [])
+    return this.instance;
+  }
+
 
   get getLastReport() { // getter method, doesnt need parenthesis to be accessed
     if (this.lastReport) return this.lastReport;
@@ -59,11 +69,6 @@ class AccountingDepartment extends Department {
   set setLastReport(report: string) {
     if (!report) throw new Error('Invalid report!')
     this.addReport(report)
-  }
-
-  constructor(id: number, private reports: string[]) {
-    super(id, 'Accounting');
-    this.lastReport = reports[0]
   }
 
   addReport(report: string) {
@@ -85,7 +90,7 @@ class AccountingDepartment extends Department {
   }
 }
 
-const accounting = new AccountingDepartment(5, []); // creates instance with Accounting for 'name'
+const accounting = AccountingDepartment.getInstance(); // creates/ fetches instance 
 
 console.log(accounting);
 
