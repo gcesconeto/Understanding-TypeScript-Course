@@ -1,8 +1,11 @@
 class Department {
-  name: string;
+  // public readonly id: number; // readonly is typescript specific
+  // name: string; // default behaviour is public
+  
+  private employees: string[] = [];
 
-  constructor(n: string) {
-    this.name = n
+  constructor(public readonly id: number, public name: string) { //shorthand for initializing props
+    // this.name = n
   }
 
   describe() {
@@ -12,9 +15,18 @@ class Department {
   describeThis(this: Department) {
     console.log(`The name of this department is: ${this.name}`);
   }
+
+  addEmployee(this: Department, employee:string) {
+    this.employees.push(employee);
+  }
+
+  printEmployeesInfo(this: Department) {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
 }
 
-const accounting = new Department('Accounting'); // creates instance with Accounting for 'name'
+const accounting = new Department(5, 'Accounting'); // creates instance with Accounting for 'name'
 
 console.log(accounting);
 
@@ -26,3 +38,11 @@ accountingCopy.describe(); // calls describe methos from instance with undefined
                            // because 'this' keyword refers to accountingCopy, that has no name key
 
 // accountingCopy.describeThis(); // generates error because describeThis requires Departemnt Type.
+
+accounting.addEmployee('Cesco');
+accounting.addEmployee('Naty');
+
+// accounting.employees[2] = 'Greg'; // error because employees property is private
+
+accounting.describe();
+accounting.printEmployeesInfo();
