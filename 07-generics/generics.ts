@@ -60,7 +60,7 @@ class DataStorage<T> { // works safely only with primitive types.
   }
 
   removeItem(item: T) {
-    this.data.splice(this.data.indexOf(item), 1)
+    this.data.splice(this.data.indexOf(item), 1)  // because of this indexOf 
   }
 
   geItems() {
@@ -71,3 +71,22 @@ class DataStorage<T> { // works safely only with primitive types.
 const textStorage = new DataStorage<string>(); // Instance initialized as T = string
 
 textStorage.addItem('30');
+
+// Generic utility types (bonus)
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+  const courseGoal: Partial<CourseGoal> = {};  // Generic type that makes all properties optional
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  return courseGoal as CourseGoal;
+}
+
+const namesArray: Readonly<string[]> = ['Greg', 'Cesco']; // creates a "tuple" array of strings
+// namesArray.push('Jeh') // cant be done because of above
