@@ -49,3 +49,25 @@ function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) 
 }
 
 console.log(extractAndConvert({name: 'Greg'}, 'name'));
+
+// Generic Classes
+
+class DataStorage<T> { // works safely only with primitive types.
+  private data: T[] = []
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    this.data.splice(this.data.indexOf(item), 1)
+  }
+
+  geItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>(); // Instance initialized as T = string
+
+textStorage.addItem('30');
