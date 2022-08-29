@@ -165,3 +165,5 @@ const fetchUserInput = null; // All three result in a false when checked by vani
 let storedData = fetchUserInput || 'Default'
 
 storedData = fetchUserInput ?? 'Default'; // This will only assign 'Default' if null or undefined
+
+export {}
