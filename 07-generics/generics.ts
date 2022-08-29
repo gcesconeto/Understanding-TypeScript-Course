@@ -15,7 +15,7 @@ promise.then((data) => data.split('')); // Works because string is specified as 
 
 // Generic Functions
 
-function merge<T, U> (objA: T, objB: U) {  // Generic types
+function merge<T, U> (objA: T, objB: U) {  // 100% generic types
   return Object.assign(objA, objB)
 }
 
@@ -23,3 +23,29 @@ const merged = merge<{name: string}, {age: number}>({ name: 'Greg' }, { age: 32 
 
 console.log(merged.name); // Works because the generic types on the function let TS know that
                           // function generates output object with name key
+
+// Type constraints
+
+function mergeObj<T extends object, U extends object> (objA: T, objB: U) {  // Generic type constrained to objects
+  return Object.assign(objA, objB)
+}
+
+interface Lengthy {
+  length: number;
+}
+
+function countAndPrint<T extends Lengthy>(element: T): [T, string] {
+  let description = 'Empty';
+  if (element.length > 0) {
+    description = 'Has lenght of ' + element.length;
+  }
+  return [element, description]
+}
+
+// keyof constraint
+
+function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) { // guarantees that U is a key of T
+  return obj[key];
+}
+
+console.log(extractAndConvert({name: 'Greg'}, 'name'));
