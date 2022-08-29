@@ -145,3 +145,13 @@ function add2(n1: Combinable, n2: Combinable) {
 
 const result = add2('Greg ', 'Ribeiro');
 result.split(' '); // gives error without overload because results doesnt get 'string' type
+
+// Optional Chaining
+
+const fetchedUserData = {
+  id: 1,
+  name: 'Greg',
+  job: {title: 'gambler nanny', description: 'takes care of gamblers'}, 
+}
+
+console.log(fetchedUserData.job.title)
