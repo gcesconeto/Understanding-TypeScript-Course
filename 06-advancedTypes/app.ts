@@ -120,3 +120,14 @@ if (userInput) {
 const userInput2 = <HTMLInputElement>document.getElementById('user-input'); // Older form of type casting
 
 userInput2.value = 'Thank you for the message';
+
+// Index Properties
+
+interface ErrorContainer {
+  [key: string]: string;   // flexible object interface with any keys of type string, that hold strings
+}
+
+const errorBag: ErrorContainer = {
+  email: 'Not a valid email',
+  // name: 65 // Error because value is not a string
+}
