@@ -151,7 +151,17 @@ result.split(' '); // gives error without overload because results doesnt get 's
 const fetchedUserData = {
   id: 1,
   name: 'Greg',
-  job: {title: 'gambler nanny', description: 'takes care of gamblers'}, 
+  job: {title: 'gambler nanny', description: 'takes care of gamblers'},
 }
 
-console.log(fetchedUserData.job.title)
+console.log(fetchedUserData?.job?.title) // fetched exists? Try job? If it exists print title
+
+// Nullish Coalescing
+
+const fetchUserInput = null; // All three result in a false when checked by vanilla JS
+// const fetchUserInput = '';
+// const fetchUserInput = 0;
+
+let storedData = fetchUserInput || 'Default'
+
+storedData = fetchUserInput ?? 'Default'; // This will only assign 'Default' if null or undefined
