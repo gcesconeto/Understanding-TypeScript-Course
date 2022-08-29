@@ -130,4 +130,18 @@ interface ErrorContainer {
 const errorBag: ErrorContainer = {
   email: 'Not a valid email',
   // name: 65 // Error because value is not a string
+};
+
+// Function Overload
+
+function add2(n1: string, n2: string): string;   // overload 1
+function add2(n1: number, n2: number): number;   // overload 2
+function add2(n1: Combinable, n2: Combinable) {
+  if (typeof n1 === 'string' || typeof n2 === 'string') { // type guard if
+    return n1.toString() + n2.toString();
+  }
+  return n1 + n2;
 }
+
+const result = add2('Greg ', 'Ribeiro');
+result.split(' '); // gives error without overload because results doesnt get 'string' type
