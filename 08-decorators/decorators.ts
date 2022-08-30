@@ -102,3 +102,30 @@ class Product {
     return this._price * (1 + tax);
   }
 }
+
+// Changing original class with decorators
+
+function ClassChanger(template: string, hookId: string) { 
+  return function<T extends { new(...args: any[]): {name: string}}>(ogConstructor: T) {
+    return class extends ogConstructor {  // returns new class with constructor logic "injected"
+      constructor(..._: any[]) {          // into it, now making the logic run only at intantiation time
+        super();
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector('h1')!.textContent += this.name;
+        }
+      }
+    }
+  }
+}
+
+
+@ClassChanger('<h1>Inner HTML replacer</h1>', 'app') // now the decorator effects will only happen when instantiating
+class Person4 {
+  name = 'Greg';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+};
