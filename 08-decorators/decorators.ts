@@ -61,3 +61,44 @@ class Person3 {
   }
 };
 
+// Decorator targets
+
+function Log(target: any, propName: string | Symbol) { // decorator for a class prop
+  console.log('Prop Decorator');
+  console.log(target, propName);
+}
+
+function LogAccessor(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Accessor Decorator');
+  console.log(target, name, descriptor);
+}
+
+function LogMethod(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Method Decorator');
+  console.log(target, name, descriptor);
+}
+
+function LogParameter(target: any, name: string, position: number) {
+  console.log('Parameter Decorator');
+  console.log(target, name, position);
+}
+
+class Product {
+  @Log                // executes when class is declared
+  title: string;
+  private _price: number;
+  @LogAccessor
+  set price(val: number) {
+    if (val > 0) this._price = val;
+    else throw new Error('Invalid price');
+  }
+
+  constructor (t: string, p: number){
+    this.title = t;
+    this._price = p;
+  }
+  @LogMethod
+  getPrixeWithTax(@LogParameter tax: number) {
+    return this._price * (1 + tax);
+  }
+}
