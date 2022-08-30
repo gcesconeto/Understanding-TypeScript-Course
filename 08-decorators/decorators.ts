@@ -38,7 +38,7 @@ class Person2 {
 
 // Useful Decorators
 
-function WithTemplate(template: string, hookId: string) {
+function WithTemplate(template: string, hookId: string) { // does more advanced things
   return function(constructor: any) {
     const hookEl = document.getElementById(hookId);
     const p = new constructor();
@@ -49,4 +49,14 @@ function WithTemplate(template: string, hookId: string) {
   }
 }
 
-// @WithTemplate('<h1>Inner HTML replacer</h1>', 'app') // does more advanced things
+// Multiple Decorators
+
+@LoggerFactory('Logging')                          // The factory executes top to botton, 
+@WithTemplate('<h1>Inner HTML replacer</h1>', 'app')  // the decorators bottom to top
+class Person3 {
+  name = 'Greg';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+};
