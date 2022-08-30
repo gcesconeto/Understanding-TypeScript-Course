@@ -70,12 +70,12 @@ function Log(target: any, propName: string | Symbol) { // decorator for a class 
 
 function LogAccessor(target: any, name: string, descriptor: PropertyDescriptor) {
   console.log('Accessor Decorator');
-  console.log(target, name, descriptor);
+  console.log(target, name, descriptor);   // accessor decorators can return a change to descriptor
 }
 
 function LogMethod(target: any, name: string, descriptor: PropertyDescriptor) {
   console.log('Method Decorator');
-  console.log(target, name, descriptor);
+  console.log(target, name, descriptor);   // method decorators can return a change to descriptor
 }
 
 function LogParameter(target: any, name: string, position: number) {
@@ -129,3 +129,34 @@ class Person4 {
     console.log('Creating person object...');
   }
 };
+
+// Autobind decorator
+
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+  const ogMethod = descriptor.value
+  const boundDescriptor: PropertyDescriptor = { // creates a new descriptor with extra logic
+    configurable: true,
+    enumerable: false,
+    get() {
+      const boundFn = ogMethod.bind(this); // binds this from og object to the get() function
+      return boundFn;
+    }
+  }
+  return boundDescriptor; // returns modified descriptor
+}
+
+
+class Printer {
+  message = 'This works';
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const printer = new Printer();
+
+const button = document.querySelector('button')!
+button.addEventListener('click', printer.showMessage) // this doesnt work because the this.message refers to another "this"
+button.addEventListener('click', printer.showMessage.bind(printer)) // this is a workaround that binds the corrent environment (printer) to the method 
