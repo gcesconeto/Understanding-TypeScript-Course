@@ -60,3 +60,4 @@ class Person3 {
     console.log('Creating person object...');
   }
 };
+
