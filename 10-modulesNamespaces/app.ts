@@ -1,26 +1,7 @@
-// Types
-interface Validatable {
-  value: string | number;
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  min?: number;
-  max?: number;
-}
+/// <reference path= "dragDropInterfaces.ts" />
+/// <reference path= "types.ts" />
 
-type Listener<T> = (items: T[]) => void;
-
-type Status = 'active' | 'finished';
-
-class Project {
-  constructor(
-    public id: string, 
-    public title: string, 
-    public desc: string, 
-    public ppl: number,
-    public status: Status
-  ) {}
-}
+namespace App {
 
 // Validation logic
 function validate(input: Validatable) {
@@ -54,18 +35,6 @@ function Autobind(_target: any, _methodName: string, descriptor: PropertyDescrip
     }
   }
   return adjustedDescriptor;
-}
-
-// Drag & Drop Interfaces
-interface Draggable {
-    dragStartHandler(event: DragEvent): void;
-    dragEndHandler(event: DragEvent): void;
-}
-
-interface DragTarget {
-    dragOverHandler(event: DragEvent) : void;
-    dropHandler(event: DragEvent) : void;
-    dragLeaveHandler(event: DragEvent) : void;
 }
 
 // Generic component class
@@ -300,10 +269,9 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> implements Drag
 }
 const state = ProjectState.getInstance();
 
-const renderInput = new ProjectInput()
+new ProjectInput()
 
-const renderActiveList = new ProjectList('active')
+new ProjectList('active')
 
-const renderFinishedList = new ProjectList('finished')
-
-export {}
+new ProjectList('finished')
+}

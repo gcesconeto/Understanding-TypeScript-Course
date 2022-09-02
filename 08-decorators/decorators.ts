@@ -231,3 +231,5 @@ courseForm.addEventListener('submit', event => {
 
   console.log(newCourse);
 })
+
+export {}

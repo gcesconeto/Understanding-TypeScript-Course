@@ -90,3 +90,5 @@ function createCourseGoal(title: string, description: string, date: Date): Cours
 
 const namesArray: Readonly<string[]> = ['Greg', 'Cesco']; // creates a "tuple" array of strings
 // namesArray.push('Jeh') // cant be done because of above
+
+export {}
