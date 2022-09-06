@@ -30,8 +30,21 @@ for (const prod of loadedProducts) {
 import 'reflect-metadata'
 import { plainToInstance } from 'class-transformer'
 
-const transformedLoadedProducts = plainToInstance(Product, products) // automating previos map.
+const transformedLoadedProducts = plainToInstance(Product, products) // automating previous map.
 
 for (const prod of transformedLoadedProducts) {
   console.log(prod.getInformation());
 }
+
+// Class-validator
+
+import { validate } from 'class-validator';
+
+ const newProd = new Product('', -1);
+
+ validate(newProd).then((err) => { // call the validation method
+   if (err.length > 0) {
+    console.log('validation error');
+    console.log(err);
+   } else console.log(newProd.getInformation());
+ })

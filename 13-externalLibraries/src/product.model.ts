@@ -1,5 +1,10 @@
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+
 export class Product {
+  @IsNotEmpty() // validation decorators
   title: string;
+  @IsNumber()
+  @IsPositive()
   price: number;
   constructor (t: string, p: number) {
     this.price = p;
