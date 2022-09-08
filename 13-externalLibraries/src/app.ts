@@ -40,11 +40,11 @@ for (const prod of transformedLoadedProducts) {
 
 import { validate } from 'class-validator';
 
- const newProd = new Product('', -1);
+const newProd = new Product('', -1);
 
- validate(newProd).then((err) => { // call the validation method
-   if (err.length > 0) {
-    console.log('validation error');
-    console.log(err);
-   } else console.log(newProd.getInformation());
- })
+validate(newProd).then((err) => { // call the validation method
+  if (err.length > 0) {
+  console.log('validation error');
+  console.log(err);
+  } else console.log(newProd.getInformation());
+})
