@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 
+import './TodoForm.css';
+
 type TodoFormProps = {
   addTodo: (todo: string) => void
 }
@@ -15,7 +17,7 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
   };
 
   return <form onSubmit={submitHandler}>
-    <div>
+    <div className="form-control">
       <label htmlFor="todo-text">Todo Text</label>
       <input type="text" id="todo-text" ref={textInput}></input>
     </div>

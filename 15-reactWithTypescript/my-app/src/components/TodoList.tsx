@@ -1,5 +1,7 @@
 import React from "react";
 
+import './TodoList.css'
+
 import { Todo } from '../todo.model';
 
 type TodoListProps = {
@@ -8,16 +10,15 @@ type TodoListProps = {
 }
 
 const TodoList: React.FC<TodoListProps> = (props) => {
-  const deleteHandler = (id: string) => {
-    props.deleteTodo(id);
-  }
-
+  // const deleteHandler = (id: string) => {
+  //   props.deleteTodo(id);
+  // }
   return <ul>
     {props.todos.map((todo) => (
       <li key={todo.id}>
         <span>
           {todo.text}
-          <button onClick={() => deleteHandler(todo.id)}>Delete</button>
+          <button onClick={props.deleteTodo.bind(null, todo.id)}>Delete</button>
         </span>
       </li>
     ))}
