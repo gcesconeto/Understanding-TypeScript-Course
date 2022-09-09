@@ -1,10 +1,12 @@
 import React from "react";
 
-type TodoProps = {
-  todos: { id: string; text: string }[];
+import { Todo } from '../todo.model';
+
+type TodoListProps = {
+  todos: Todo[];
 }
 
-const TodoList: React.FC<TodoProps> = (props) => {
+const TodoList: React.FC<TodoListProps> = (props) => {
   return <ul>
     {props.todos.map((todo) => (
       <li key={todo.id}>{todo.text}</li>
