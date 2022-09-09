@@ -11,6 +11,7 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
     event.preventDefault();
     const userInput = textInput.current!.value;
     props.addTodo(userInput);
+    textInput.current!.value = '';
   };
 
   return <form onSubmit={submitHandler}>
