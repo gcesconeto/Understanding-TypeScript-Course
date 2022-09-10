@@ -1,0 +1,15 @@
+import { Request, Response, NextFunction, Router } from 'express';
+
+import { createTodo } from '../constrollers/todos';
+
+const router = Router();
+
+router.post('/', createTodo)
+
+router.get('/', )
+
+router.patch('/:id', )
+
+router.delete('/:id', )
+
+export default router;
